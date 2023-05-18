@@ -153,12 +153,12 @@ controllerMethods.updateUser = async (req, res) => {
     )
       res.status(400).json({
         success: false,
-        message: "Not all required properties have been provided.",
+        message: "Nem todas as propriedades necessárias foram fornecidas.",
       });
     else if (req.userId !== userId) {
       res.status(401).json({
         success: false,
-        message: "Current user is not authorized to make update.",
+        message: "Usuário atual não autorizado para executar update.",
       });
     } else {
       // encrypt password
@@ -169,7 +169,7 @@ controllerMethods.updateUser = async (req, res) => {
       if (results) {
         res.json({ success: true, data: results });
       } else {
-        res.status(404).json({ success: false, data: "No user found." });
+        res.status(404).json({ success: false, data: "Nenhum usuário encontrado." });
       }
     }
   } catch (e) {
@@ -177,7 +177,7 @@ controllerMethods.updateUser = async (req, res) => {
     if (e.code === "ER_DUP_ENTRY")
       res.status(400).json({
         success: false,
-        message: "User with this email already exists.",
+        message: "Usuário com esse e-mail existente.",
       });
     else {
       console.log(e.message);
@@ -195,14 +195,14 @@ controllerMethods.deleteUser = async (req, res) => {
     if (req.userId !== userId) {
       res.status(401).json({
         success: false,
-        message: "Current user is not authorized to make delete.",
+        message: "O usuário atual não é autorizado a deletar.",
       });
     } else {
       let results = await userService.deleteUser(userId);
       if (results) {
-        res.json({ success: true, message: "Delete successful." });
+        res.json({ success: true, message: "Deletato com sucesso." });
       } else {
-        res.status(404).json({ success: false, data: "No user found." });
+        res.status(404).json({ success: false, data: "Nenhum usuário encontrado." });
       }
     }
   } catch (e) {
@@ -227,7 +227,7 @@ controllerMethods.login = async (req, res) => {
         const jsontoken = sign({ userId: results.id }, process.env.JWT_KEY);
         res.json({
           success: true,
-          message: "Login successful.",
+          message: "Logado com sucesso.",
           data: {
             user_id: results.id,
             token: jsontoken,
@@ -236,7 +236,7 @@ controllerMethods.login = async (req, res) => {
       } else {
         res.status(401).json({
           success: false,
-          message: "Invalid email or password.",
+          message: "Email ou senha inválida.",
         });
       }
     }
