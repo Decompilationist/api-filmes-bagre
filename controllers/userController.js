@@ -12,7 +12,7 @@ controllerMethods.getAllUsers = async (req, res) => {
     if (results.length > 0) {
       res.json({ success: true, data: results });
     } else {
-      res.status(404).json({ success: false, message: "No users found." });
+      res.status(404).json({ success: false, message: "usuários não encontrados." });
     }
   } catch (e) {
     console.log(e.message);
@@ -29,7 +29,7 @@ controllerMethods.getOneUser = async (req, res) => {
     if (req.userId !== userId) {
       res.status(401).json({
         success: false,
-        message: "Current user is not authorized to get this information.",
+        message: "O usuário atual não está autorizado para dar get nas informações.",
       });
     } else {
       let results = await userService.getOneUser(userId);
@@ -63,7 +63,7 @@ controllerMethods.getUserTickets = async (req, res) => {
       if (results) {
         res.json({ success: true, data: results });
       } else {
-        res.status(404).json({ success: false, message: "No user found." });
+        res.status(404).json({ success: false, message: "Nenhum usuário encontrado." });
       }
     }
   } catch (e) {
@@ -80,7 +80,7 @@ controllerMethods.getUserRefunds = async (req, res) => {
     const { userId } = req.params;
     const isRegisteredUser = userId != null;
     if (!isRegisteredUser)
-      res.status(404).json({ status: false, message: "user id not found" });
+      res.status(404).json({ status: false, message: "id de usuário não encontrado" });
     else {
       let credits = await getCreditByUser(userId);
       let total_credit = 0;
@@ -90,7 +90,7 @@ controllerMethods.getUserRefunds = async (req, res) => {
         });
         res.json({ status: true, data: total_credit });
       } else {
-        res.json({ status: false, message: "user has no credits" });
+        res.json({ status: false, message: "usuário não possui créditos" });
       }
     }
   } catch (e) {
@@ -111,7 +111,7 @@ controllerMethods.createUser = async (req, res) => {
     )
       res.status(400).json({
         success: false,
-        message: "Not all required properties have been provided.",
+        message: "Nem todas as propriedades necessárias foram fornecidas",
       });
     else {
       // encrypt password
@@ -126,7 +126,7 @@ controllerMethods.createUser = async (req, res) => {
     if (e.code === "ER_DUP_ENTRY")
       res.status(400).json({
         success: false,
-        message: "User with this email already exists.",
+        message: "Usuário com esse e-mail existente..",
       });
     else {
       console.log(e.message);

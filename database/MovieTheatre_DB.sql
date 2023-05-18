@@ -17,12 +17,6 @@ CREATE TABLE REGISTERED_USER (
 );
 
 -- user passwords have been hashed. All users have password '1234'
-INSERT INTO REGISTERED_USER (id, first_name, last_name, email_address, password ,address, credit_card, annual_fee_expiry_date)
-VALUES
-('U_0001','Bob', 'The_Guy','btg@ucalgary.ca', '$2b$10$wfKMECuJ2EsloQPATbwsOO/rTU/eI3zUfwD8UwNui7nX4dSnk7xAa', '123 Streetname NW, Calgary, AB','1234 9876 0192 8374', '2023-11-26 09:00:00'),
-('U_0002','Real', 'Person','rperson@ucalgary.ca', '$2b$10$wfKMECuJ2EsloQPATbwsOO/rTU/eI3zUfwD8UwNui7nX4dSnk7xAa','8900 RealPlace NE, Calgary, AB','1046 2894 9101 3949', '2023-11-26 09:00:00'),
-('U_0003','Why', 'OhWhyat', 'wow@ucalgary.ca', '$2b$10$wfKMECuJ2EsloQPATbwsOO/rTU/eI3zUfwD8UwNui7nX4dSnk7xAa', '9031 RiverHouse SE, Calgary, AB','9374 0129 0932 5674', '2023-11-26 09:00:00'),
-('U_0004', 'Wendy', 'Thomas', 'wthomas@ucalgary.ca', '$2b$10$wfKMECuJ2EsloQPATbwsOO/rTU/eI3zUfwD8UwNui7nX4dSnk7xAa', '257 East Broad Street SW, Calgary, AB', '1113 1919 9191 1234','2023-11-26 09:00:00');
 
 
 DROP TABLE IF EXISTS MOVIE;
@@ -314,27 +308,6 @@ CREATE TABLE TICKET(
 
 );
 
-INSERT INTO TICKET (ticket_id, user_id, seat_id, is_credited, payment_id)
-VALUES
-('TK_0001','U_0001','S_112622_9_001_001_01', false, 'P_0001'),
-('TK_0002','U_0002','S_112622_11_002_002_11', false, 'P_0002'),
-('TK_0003','U_0002','S_112622_11_002_002_12', false, 'P_0003'),
-('TK_0004','U_0002','S_112622_11_002_002_13', false, 'P_0004'),
-('TK_0005','U_0002','S_112622_11_002_002_14', false, 'P_0005'),
-('TK_0006','U_0003','S_112622_9_003_003_27', true, 'P_0006'),
-('TK_0007','U_0003','S_112622_9_003_003_28', true, 'P_0007'),
-('TK_0008','U_0003','S_112622_9_003_003_26', true, 'P_0008'),
-('TK_0009','U_0003','S_112622_9_003_003_28', false, 'P_0009'),
-('TK_0010', 'U_0004','S_112622_9_001_001_06', false, 'P_0010'),
-('TK_0011', 'U_0004','S_112622_9_001_001_07', false, 'P_0011'),
-('TK_0012', 'U_0004','S_121022_9_002_004_15', false, 'P_0012'),
-('TK_0013', 'U_0004','S_121022_9_002_004_16', false, 'P_0013'),
-('TK_0014', null,'S_112622_9_001_001_20', true, 'P_0014'),
-('TK_0015', null,'S_112622_11_002_002_5', true, 'P_0015'),
-('TK_0016', null,'S_112622_9_003_003_4', false, 'P_0016'),
-('TK_0017', null,'S_112622_13_003_002_7', false, 'P_0017'),
-('TK_0018', null,'S_121022_9_002_004_26', false, 'P_0018');
-
 DROP TABLE IF EXISTS REFUND;
 CREATE TABLE REFUND(
 	ticket_id 				varchar(255) not null,
@@ -343,13 +316,7 @@ CREATE TABLE REFUND(
 	primary key (ticket_id),
 	foreign key (ticket_id) references TICKET(ticket_id)
 );
-INSERT INTO REFUND(ticket_id, credit_available, expiration_date)
-VALUES
-('TK_0006', 3, '2023-11-26 09:00:00'),
-('TK_0007', 6, '2023-11-26 09:00:00'),
-('TK_0008', 0, '2023-11-26 09:00:00'),
-('TK_0014', 4, '2023-11-26 09:00:00'),
-('TK_0015', 10, '2023-11-26 09:00:00');
+
 
 
 
@@ -364,9 +331,7 @@ CREATE TABLE REFUND_PAYMENT(
     foreign key (payment_id) references PAYMENT(payment_id)
 );
 
-INSERT INTO REFUND_PAYMENT(payment_id, refund_amount, refund_ticket_id)
-VALUES
-('P_0009', 10, 'TK_0008');
+
 
 DROP TABLE IF EXISTS CREDIT_PAYMENT;
 CREATE TABLE CREDIT_PAYMENT(
@@ -377,25 +342,7 @@ CREATE TABLE CREDIT_PAYMENT(
     foreign key (payment_id) references PAYMENT(payment_id)
 );
 
-INSERT INTO CREDIT_PAYMENT(payment_id, amount, credit_card)
-VALUES
-('P_0001', 10, '1234 9876 0192 8374'),
-('P_0002', 10, '1046 2894 9101 3949'),
-('P_0003', 10, '1046 2894 9101 3949'),
-('P_0004', 10, '1046 2894 9101 3949'),
-('P_0005', 10, '1046 2894 9101 3949'),
-('P_0006', 10, '9374 0129 0932 5674'),
-('P_0007', 10, '9374 0129 0932 5674'),
-('P_0008', 10, '9374 0129 0932 5674'),
-('P_0010', 10, '1113 1919 9191 1234'),
-('P_0011', 10, '1113 1919 9191 1234'),
-('P_0012', 10, '1113 1919 9191 1234'),
-('P_0013', 10, '1113 1919 9191 1234'),
-('P_0014', 10, '3121 5454 5454 4444'),
-('P_0015', 10, '3121 5454 5454 4444'),
-('P_0016', 10, '3121 5454 5454 4444'),
-('P_0017', 10, '3121 5454 5454 4444'),
-('P_0018', 10, '3121 5454 5454 4444');
+
 
 
 -- UPDATE REFUND SET credit_available = 3 WHERE ticket_id = 'TK_0007';
