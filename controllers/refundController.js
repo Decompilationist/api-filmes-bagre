@@ -9,7 +9,7 @@ controllerMethods.getCreditByTicket = async (req, res) => {
     if (results) {
       res.json({ success: true, data: results });
     } else {
-      res.status(404).json({ success: false, message: "no credit available" });
+      res.status(404).json({ success: false, message: "credito não disponível" });
     }
   } catch (e) {
     res.status(500).json({ success: false, message: e.message });
@@ -21,7 +21,7 @@ controllerMethods.getTotalCreditByUser = async (req, res) => {
     const user_id = req.userId;
     const isRegisteredUser = user_id != null;
     if (!isRegisteredUser)
-      res.status(404).json({ success: false, message: "user id not found" });
+      res.status(404).json({ success: false, message: "id de usuário não encontrado" });
     else {
       let credits = await refundService.getCreditByUser(user_id);
       let total_credit = 0;
