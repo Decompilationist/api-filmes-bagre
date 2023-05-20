@@ -10,7 +10,7 @@ controllerMethods.getAllMovies = async (req, res) => {
     if (results.length > 0) {
       res.json({ success: true, data: results });
     } else {
-      res.status(404).json({ success: false, message: "No movies found." });
+      res.status(404).json({ success: false, message: "Nehum file encontrado." });
     }
   } catch (e) {
     console.log(e.message);
@@ -29,7 +29,7 @@ controllerMethods.getOneMovie = async (req, res) => {
     if (results) {
       res.json({ success: true, data: results });
     } else {
-      res.status(404).json({ success: false, message: "Movie not found." });
+      res.status(404).json({ success: false, message: "Filme não encontrado." });
     }
   } catch (e) {
     console.log(e.message);

@@ -34,7 +34,7 @@ class DatabaseConnection {
     return this.connection;
   }
 
-  // a wrapper function to create promises for queries
+  // função para criar promisses p querys
   query(sql, args) {
     return util
       .promisify(this.connection.query)
