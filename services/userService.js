@@ -19,7 +19,8 @@ serviceMethods.createUser = async (body) => {
   const result = await userModel.createUser(body, id);
   if (result) {
     const results = await userModel.getOneUser(id);
-    sendWelcomeEmail(results.email_address, results.first_name);
+    // sendWelcomeEmail
+    (results.email_address, results.first_name);
     return results;
   }
   return null;
